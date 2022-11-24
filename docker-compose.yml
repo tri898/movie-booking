@@ -1,0 +1,32 @@
+version: "2"
+
+services:
+  workspace:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: movie-booking
+    working_dir: /var/www/html
+    ports:
+      - "8000:8000"
+    volumes:
+        - .:/var/www/html
+        - ./docker/nginx_log:/var/log/nginx
+        - ./docker/php-fpm/php-fpm.log:/var/log/php-fpm.log
+        - ./docker/config/app.conf:/etc/nginx/conf.d/app.conf
+    links: 
+        - mysql
+
+  mysql:
+    container_name: mb_mysql
+    image: mysql:8.0
+    command: "--default-authentication-plugin=mysql_native_password"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: mb_db
+      MYSQL_USER: thientri
+      MYSQL_PASSWORD: thientri
+      MYSQL_ROOT_PASSWORD: root
