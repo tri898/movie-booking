@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\SocialLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
-Route::get('/hahah', function () {
-    return view('welcome');
-});
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('auth.login');
+
+Route::get('social-login/{provider}/callback', [SocialLoginController::class,'providerCallback'])
+    ->whereIn('provider', ['facebook', 'github']);
+Route::get('social-login/{provider}', [SocialLoginController::class,'redirectToProvider'])
+    ->whereIn('provider', ['facebook', 'github'])
+    ->name('social-login.redirect');
