@@ -19,9 +19,14 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('auth.login');
+Route::get('cms/dashboard', function () {
+    return view('admin.index');
+})->name('cms.dashboard');
+
+Route::get('cms/login', function () {
+    return view('admin.sign-in');
+})->name('cms.login');
+
 
 Route::get('social-login/{provider}/callback', [SocialLoginController::class,'providerCallback'])
     ->whereIn('provider', ['facebook', 'github']);
