@@ -6,21 +6,24 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile
     container_name: movie-booking
+    restart: always
     working_dir: /var/www/html
     ports:
       - "8000:8000"
     volumes:
         - .:/var/www/html
+        - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
         - ./docker/nginx_log:/var/log/nginx
         - ./docker/php-fpm/php-fpm.log:/var/log/php-fpm.log
         - ./docker/config/app.conf:/etc/nginx/conf.d/app.conf
-    links: 
+    links:
         - mysql
 
   mysql:
     container_name: mb_mysql
     image: mysql:8.0
     command: "--default-authentication-plugin=mysql_native_password"
+    restart: always
     ports:
       - "3306:3306"
     volumes:
