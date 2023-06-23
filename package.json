@@ -17,6 +17,7 @@
         "feather-icons": "4.29.0",
         "flatpickr": "4.6.13",
         "jsvectormap": "1.5.3",
+        "just-validate": "^4.2.0",
         "simplebar": "5.3.9"
     },
     "devDependencies": {
