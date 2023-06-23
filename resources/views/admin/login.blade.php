@@ -16,7 +16,7 @@
 
     <title>CMS | Login</title>
 
-    <link href="{{asset('admin/css/app.css')}}" rel="stylesheet">
+    <link href="{{mix('admin/css/app.css')}}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -37,14 +37,24 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="m-sm-3">
-                                <form>
+                                @if ($errors->any())
+                                    <div class="text-center p-2 mt-1">
+                                        @foreach ($errors->all() as $error)
+                                            <p>
+                                                <strong>{{ $error }}</strong>
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                <form id="login-form" action="{{route('admin.auth.login')}}" method="POST">
+                                    @csrf
                                     <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
+                                        <label class="form-label">Email (*)</label>
+                                        <input class="form-control form-control-lg" type="email" id="login-email" name="email" value="{{ old('email') }}" placeholder="Enter your email" />
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Password</label>
-                                        <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password" />
+                                        <label class="form-label">Password (*)</label>
+                                        <input class="form-control form-control-lg" type="password" id="login-password" name="password" value="{{ old('password') }}" placeholder="Enter your password" />
                                     </div>
                                     <div>
                                         <div class="form-check align-items-center">
@@ -53,23 +63,23 @@
                                         </div>
                                     </div>
                                     <div class="d-grid gap-2 mt-3">
-                                        <a href="index.html" class="btn btn-lg btn-primary">Sign in</a>
+                                        <button type="submit" class="btn btn-lg btn-primary">Sign in</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center mb-3">
-                        Don't have an account? <a href="pages-sign-up.html">Sign up</a>
-                    </div>
+{{--                    <div class="text-center mb-3">--}}
+{{--                        Don't have an account? <a href="pages-sign-up.html">Sign up</a>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         </div>
     </div>
 </main>
 
-<script src="{{asset('/admin/js/app.js')}}"></script>
-
+<script src="{{ mix('/admin/js/app.js') }}"></script>
+<script src="{{ mix('/admin/js/validate-forms/login.js')}}"></script>
 </body>
 
 </html>

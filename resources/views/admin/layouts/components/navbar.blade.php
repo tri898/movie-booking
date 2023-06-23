@@ -143,7 +143,11 @@
                 </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                    <img src="{{asset('/admin/img/avatars/avatar.jpg')}}" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+                        @if(auth()->guard('admin')->check())
+                        <img src="{{asset('/admin/img/avatars/avatar.jpg')}}" class="avatar img-fluid rounded me-1" alt="{{ auth()->guard('admin')->user()->name }}" /> <span class="text-dark">
+                            {{ auth()->guard('admin')->user()->name }}
+                        @endif
+                    </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
@@ -152,7 +156,7 @@
                     <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Log out</a>
+                    <a class="dropdown-item" href="{{route('admin.auth.logout')}}">Log out</a>
                 </div>
             </li>
         </ul>

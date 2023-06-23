@@ -21,3 +21,7 @@ yarn-error.log
 /docker/nginx_log/*
 /docker/mysql/*
 
+/public/mix-manifest.json
+/public/admin/css
+/public/admin/js
+
