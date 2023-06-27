@@ -58,7 +58,7 @@
                                     </div>
                                     <div>
                                         <div class="form-check align-items-center">
-                                            <input id="customControlInline" type="checkbox" class="form-check-input" value="remember-me" name="remember-me" checked>
+                                            <input id="customControlInline" type="checkbox" class="form-check-input" value="1" name="remember_me">
                                             <label class="form-check-label text-small" for="customControlInline">Remember me</label>
                                         </div>
                                     </div>
