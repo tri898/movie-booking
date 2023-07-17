@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('avatar')->nullable()->after('email');
-            $table->boolean('status')->after('avatar');
+            $table->boolean('status')->after('avatar')->default(TRUE);
             $table->datetime('last_login_at')->after('status')->nullable();
             $table->string('last_login_ip')->after('status')->nullable();
         });
