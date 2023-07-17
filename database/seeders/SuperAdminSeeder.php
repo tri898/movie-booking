@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -17,12 +18,15 @@ class SuperAdminSeeder extends Seeder
     {
         $superAdmin = DB::table('admins')->where('id', '=', 1)->get();
         if ($superAdmin->isEmpty()) {
-            DB::table('admins')->insert([
+            // Reset cached roles and permissions
+            app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+           $admin =  Admin::create([
                 'name' => ENV('SUPPER_ADMIN_NAME'),
                 'email' => ENV('SUPPER_ADMIN_EMAIL'),
-                'password' => Hash::make(ENV('SUPPER_ADMIN_PASSWORD')),
+                'password' => ENV('SUPPER_ADMIN_PASSWORD'),
                 'status' => TRUE,
             ]);
+           $admin->assignRole('super-admin');
         }
     }
 }

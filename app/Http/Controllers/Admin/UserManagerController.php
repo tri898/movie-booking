@@ -20,8 +20,10 @@ class UserManagerController extends Controller
      */
     public function index(): string
     {
-
-        return view('admin.user-manager.index');
+        $admins = Admin::with('roles:name')->latest()->paginate(10);
+        return view('admin.user-manager.index')->with([
+            'admins' => $admins
+        ]);
     }
 
     /**
@@ -44,18 +46,18 @@ class UserManagerController extends Controller
      */
     public function store(UserManagerRequest $request)
     {
-        $request = $request->validated();
-        dd($request);
-        $email = Admin::whereEmail($request['email'])->first();
+        $email = Admin::whereEmail($request->email)->first();
         if ($email) {
             return back()->withErrors([
                 'status' => 'The email has already been taken.',
             ])->withInput();
         }
-        Admin::create($request);
+        $credentials = $request->only(['email', 'name', 'password', 'status']);
+        $admin = Admin::create($credentials);
+        $admin->assignRole($request->roles);
         // send mail confirm
         // todo
-        return view('admin.user-manager.index')->with([
+        return redirect()->route('admin.user-manager.index')->with([
             'status' => 'Create user manager successfully.',
         ]);
     }

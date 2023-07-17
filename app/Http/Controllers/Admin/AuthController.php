@@ -27,9 +27,9 @@ class AuthController extends Controller
     public function login(LoginRequest $request): RedirectResponse
     {
         $rememberMe = $request->has('remember_me');
-        $request = $request->validated();
-        if (Auth::guard('admin')->attempt($request, $rememberMe)) {
-            session()->regenerate();
+        if (Auth::guard('admin')->attempt(
+            ['email' => $request->email, 'password' => $request->password, 'status' => TRUE ], $rememberMe)) {
+            Auth::guard('admin')->user();
             return redirect()->route('admin.dashboard.index');
         }
         return back()->withErrors([
@@ -47,6 +47,6 @@ class AuthController extends Controller
         session()->invalidate();
         session()->regenerateToken();
 
-        return back();
+        return redirect()->route('admin.auth.login');
     }
 }

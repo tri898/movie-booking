@@ -16,8 +16,16 @@
                     <div class="card-header">
 
                         <h5 class="card-title mb-0">Users</h5>
+                        @if(session('status'))
+                            <div class="alert alert-success mt-3" role="alert">
+                                <div class="alert-message text-wrap">
+                                    {{ session('status') }}
+                                </div>
+                            </div>
+                        @endif
                         <div class="mt-3">
-                            <a href="{{route('admin.user-manager.create')}}" class="btn btn-primary">Create User Manager</a>
+                            <a href="{{route('admin.user-manager.create')}}" class="btn btn-primary">Create User
+                                Manager</a>
                         </div>
                     </div>
                     <table class="table table-hover my-0">
@@ -25,94 +33,47 @@
                         <tr>
                             <th>Username</th>
                             <th class="d-none d-xl-table-cell">Created at</th>
-                            <th class="d-none d-xl-table-cell">Status</th>
-                            <th class="d-none d-xl-table-cell">Roles</th>
+                            <th class="">Status</th>
+                            <th>Roles</th>
                             <th class="d-none d-xl-table-cell">Last access</th>
-                            <th class="d-none d-xl-table-cell">Actions</th>
+                            <th class="d-none d-xl-table-cell">IP access</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Project Apollo</td>
-                            <td class="d-none d-xl-table-cell">01/01/2023</td>
-                            <td class="d-none d-xl-table-cell">31/06/2023</td>
-                            <td><span class="badge bg-success">Done</span></td>
-                            <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-                            <td class="table-action">
-                                <a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
-                                <a href=""><i class="align-middle" data-feather="trash"></i></a>
-                                <a href=""><i class="align-middle" data-feather="eye"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Project Fireball</td>
-                            <td class="d-none d-xl-table-cell">01/01/2023</td>
-                            <td class="d-none d-xl-table-cell">31/06/2023</td>
-                            <td><span class="badge bg-danger">Cancelled</span></td>
-                            <td class="d-none d-md-table-cell">William Harris</td>
-                            <td class="table-action">
-                                <a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
-                                <a href=""><i class="align-middle" data-feather="trash"></i></a>
-                                <a href=""><i class="align-middle" data-feather="eye"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Project Hades</td>
-                            <td class="d-none d-xl-table-cell">01/01/2023</td>
-                            <td class="d-none d-xl-table-cell">31/06/2023</td>
-                            <td><span class="badge bg-success">Done</span></td>
-                            <td class="d-none d-md-table-cell">Sharon Lessman</td>
-                            <td class="table-action">
-                                <a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
-                                <a href=""><i class="align-middle" data-feather="trash"></i></a>
-                                <a href=""><i class="align-middle" data-feather="eye"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Project Nitro</td>
-                            <td class="d-none d-xl-table-cell">01/01/2023</td>
-                            <td class="d-none d-xl-table-cell">31/06/2023</td>
-                            <td>
-                                <span class="badge bg-warning">In progress</span>
-                                <span class="badge bg-success">Done</span>
-                            </td>
-                            <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-                            <td class="table-action">
-                                <a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
-                                <a href=""><i class="align-middle" data-feather="trash"></i></a>
-                                <a href=""><i class="align-middle" data-feather="eye"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Project Phoenix</td>
-                            <td class="d-none d-xl-table-cell">01/01/2023</td>
-                            <td class="d-none d-xl-table-cell">31/06/2023</td>
-                            <td><span class="badge bg-success">Done</span></td>
-                            <td class="d-none d-md-table-cell">William Harris</td>
-                        </tr>
-                        <tr>
-                            <td>Project X</td>
-                            <td class="d-none d-xl-table-cell">01/01/2023</td>
-                            <td class="d-none d-xl-table-cell">31/06/2023</td>
-                            <td><span class="badge bg-success">Done</span></td>
-                            <td class="d-none d-md-table-cell">Sharon Lessman</td>
-                        </tr>
-                        <tr>
-                            <td>Project Romeo</td>
-                            <td class="d-none d-xl-table-cell">01/01/2023</td>
-                            <td class="d-none d-xl-table-cell">31/06/2023</td>
-                            <td><span class="badge bg-success">Done</span></td>
-                            <td class="d-none d-md-table-cell">Christina Mason</td>
-                        </tr>
-                        <tr>
-                            <td>Project Wombat</td>
-                            <td class="d-none d-xl-table-cell">01/01/2023</td>
-                            <td class="d-none d-xl-table-cell">31/06/2023</td>
-                            <td><span class="badge bg-warning">In progress</span></td>
-                            <td class="d-none d-md-table-cell">William Harris</td>
-                        </tr>
+                        @foreach ($admins as $admin)
+                            <tr>
+                                <td>{{ $admin->email }}</td>
+                                <td class="d-none d-xl-table-cell">{{ $admin->created_at }}</td>
+                                <td>
+                                    @if ($admin->status)
+                                        <span class="badge bg-success">Active</span>
+                                    @else
+                                        <span class="badge bg-danger">Blocked</span>
+                                    @endif
+
+                                </td>
+                                <td>
+                                    @if(!empty($admin->getRoleNames()))
+                                        <ul>
+                                            @foreach($admin->getRoleNames() as $role)
+                                                <li>{{ $role }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </td>
+                                <td class="d-none d-md-table-cell">{{ $admin->last_login_at }}</td>
+                                <td class="d-none d-md-table-cell">{{ $admin->last_login_at }}</td>
+                                <td class="d-xl-table-cell">
+                                    <a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
+                    <div class="mt-3">
+                        {{ $admins->links() }}
+                    </div>
                 </div>
             </div>
         </div>

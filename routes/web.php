@@ -20,17 +20,24 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::group(['prefix' => 'admin'], function () {
+// Private route CMS admin
+Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::name('admin.')->group(function () {
         Route::get('dashboard', function () {
             return view('admin.index');
         })->name('dashboard.index');
-        Route::get('login', [AdminAuthController::class, 'index'])->name('auth.index');
-        Route::post('login', [AdminAuthController::class, 'login'])->name('auth.login');
-        Route::get('logout', [AdminAuthController::class, 'logout'])->name('auth.logout');
         Route::get('user-manager', [UserManagerController::class, 'index'])->name('user-manager.index');
         Route::get('user-manager/create', [UserManagerController::class, 'create'])->name('user-manager.create');
         Route::post('user-manager/create', [UserManagerController::class, 'store'])->name('user-manager.store');
+    });
+});
+
+// Public route CMS admin
+Route::group(['prefix' => 'admin'], function () {
+    Route::name('admin.')->group(function () {
+        Route::get('login', [AdminAuthController::class, 'index'])->name('auth.index');
+        Route::post('login', [AdminAuthController::class, 'login'])->name('auth.login');
+        Route::get('logout', [AdminAuthController::class, 'logout'])->name('auth.logout');
     });
 });
 
