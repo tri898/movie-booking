@@ -8,12 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserRepository implements UserRepositoryInterface
 {
     /**
-     * The Model is called
-     */
-    protected const MODEL = User::class;
-    protected const REFERENCE_MODEL = SocialUser::class;
-
-    /**
      * Find user by email
      *
      * @param string $email
@@ -21,7 +15,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function findByEmail(string $email): mixed
     {
-        return self::MODEL::where(['email' => $email])->first();
+        return User::where(['email' => $email])->first();
     }
 
     /**
@@ -32,7 +26,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function store(array $attr): mixed
     {
-        return self::MODEL::create($attr);
+        return User::create($attr);
     }
 
     /**
@@ -60,7 +54,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function findByProvider(string $providerName, string $providerId): mixed
     {
-        return self::REFERENCE_MODEL::where([
+        return SocialUser::where([
             'provider_name' => $providerName,
             'provider_id' => $providerId
         ])->first();

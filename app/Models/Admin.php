@@ -25,7 +25,9 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
-        'status'
+        'status',
+        'last_login_at',
+        'last_login_ip'
     ];
 
     /**

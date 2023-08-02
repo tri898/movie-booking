@@ -4,14 +4,6 @@ const validator  = new JustValidate('#userManagerForm',{
 });
 
 validator
-    .addField('#adminEmail', [
-        {
-            rule: 'required',
-        },
-        {
-            rule: 'email',
-        }
-    ])
     .addField('#adminName', [
         {
             rule: 'required',
@@ -19,17 +11,14 @@ validator
     ])
     .addField('#adminPassword', [
         {
-            rule: 'required',
-        },
-        {
             rule: 'strongPassword'
         },
 
-    ])
-    .addField('#adminPasswordConfirmation', [
+    ],
         {
-            rule: 'required',
-        },
+            errorsContainer: document.querySelector('.password-group'),
+        })
+    .addField('#adminPasswordConfirmation', [
         {
             validator: (value, fields) => {
                 if (

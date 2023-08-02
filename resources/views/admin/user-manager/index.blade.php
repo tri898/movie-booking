@@ -16,10 +16,10 @@
                     <div class="card-header">
 
                         <h5 class="card-title mb-0">Users</h5>
-                        @if(session('status'))
+                        @if(session('message'))
                             <div class="alert alert-success mt-3" role="alert">
                                 <div class="alert-message text-wrap">
-                                    {{ session('status') }}
+                                    {{ session('message') }}
                                 </div>
                             </div>
                         @endif
@@ -32,11 +32,11 @@
                         <thead>
                         <tr>
                             <th>Username</th>
+                            <th>Status</th>
+                            <th class="d-none d-xl-table-cell">Roles</th>
                             <th class="d-none d-xl-table-cell">Created at</th>
-                            <th class="">Status</th>
-                            <th>Roles</th>
                             <th class="d-none d-xl-table-cell">Last access</th>
-                            <th class="d-none d-xl-table-cell">IP access</th>
+                            <th class="d-none d-md-table-cell">IP access</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -44,7 +44,6 @@
                         @foreach ($admins as $admin)
                             <tr>
                                 <td>{{ $admin->email }}</td>
-                                <td class="d-none d-xl-table-cell">{{ $admin->created_at }}</td>
                                 <td>
                                     @if ($admin->status)
                                         <span class="badge bg-success">Active</span>
@@ -53,7 +52,7 @@
                                     @endif
 
                                 </td>
-                                <td>
+                                <td class="d-none d-xl-table-cell">
                                     @if(!empty($admin->getRoleNames()))
                                         <ul>
                                             @foreach($admin->getRoleNames() as $role)
@@ -62,10 +61,19 @@
                                         </ul>
                                     @endif
                                 </td>
-                                <td class="d-none d-md-table-cell">{{ $admin->last_login_at }}</td>
-                                <td class="d-none d-md-table-cell">{{ $admin->last_login_at }}</td>
-                                <td class="d-xl-table-cell">
-                                    <a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
+                                <td class="d-none d-xl-table-cell">
+                                    @if ($admin->created_at)
+                                        {{ Carbon\Carbon::parse($admin->created_at)->diffForHumans() }}
+                                    @endif
+                                </td>
+                                <td class="d-none d-xl-table-cell">
+                                    @if ($admin->last_login_at)
+                                        {{ Carbon\Carbon::parse($admin->last_login_at)->diffForHumans() }}
+                                    @endif
+                                </td>
+                                <td class="d-none d-md-table-cell">{{ $admin->last_login_ip }}</td>
+                                <td>
+                                    <a href="{{ route('admin.user-manager.edit',$admin->id) }}"><i class="align-middle" data-feather="edit-2"></i></a>
                                 </td>
                             </tr>
                         @endforeach

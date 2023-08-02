@@ -26,9 +26,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
         Route::get('dashboard', function () {
             return view('admin.index');
         })->name('dashboard.index');
-        Route::get('user-manager', [UserManagerController::class, 'index'])->name('user-manager.index');
-        Route::get('user-manager/create', [UserManagerController::class, 'create'])->name('user-manager.create');
-        Route::post('user-manager/create', [UserManagerController::class, 'store'])->name('user-manager.store');
+        Route::resource('user-manager', UserManagerController::class)->except(['show']);
+
     });
 });
 
