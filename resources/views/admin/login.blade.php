@@ -38,27 +38,27 @@
                         <div class="card-body">
                             <div class="m-sm-3">
                                 @if ($errors->any())
-                                    <div class="text-center p-2 mt-1">
+                                    <div class="alert alert-warning" role="alert">
                                         @foreach ($errors->all() as $error)
-                                            <p>
-                                                <strong>{{ $error }}</strong>
-                                            </p>
+                                            <div class="alert-message">
+                                                {{ $error }}
+                                            </div>
                                         @endforeach
                                     </div>
                                 @endif
                                 <form id="login-form" action="{{route('admin.auth.login')}}" method="POST">
                                     @csrf
                                     <div class="mb-3">
-                                        <label class="form-label">Email (*)</label>
+                                        <label class="form-label"><strong>Email*</strong></label>
                                         <input class="form-control form-control-lg" type="email" id="login-email" name="email" value="{{ old('email') }}" placeholder="Enter your email" />
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Password (*)</label>
+                                        <label class="form-label"><strong>Password*</strong></label>
                                         <input class="form-control form-control-lg" type="password" id="login-password" name="password" value="{{ old('password') }}" placeholder="Enter your password" />
                                     </div>
                                     <div>
                                         <div class="form-check align-items-center">
-                                            <input id="customControlInline" type="checkbox" class="form-check-input" value="1" name="remember_me">
+                                            <input id="customControlInline" type="checkbox" class="form-check-input" value="1" name="remember_me" @checked(old('remember_me', 0))>
                                             <label class="form-check-label text-small" for="customControlInline">Remember me</label>
                                         </div>
                                     </div>

@@ -10,7 +10,7 @@
             </li>
 
             <li class="sidebar-item active">
-                <a class="sidebar-link" href="index.html">
+                <a class="sidebar-link" href="{{ route('admin.user-manager.index') }}">
                     <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">User Manager</span>
                 </a>
             </li>

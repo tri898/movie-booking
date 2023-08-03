@@ -11,26 +11,28 @@ class AuthController extends Controller
 {
     /**
      * Render view.
+     *
      * @return string
      */
     public function index(): string
     {
         return Auth::guard('admin')->check()
-            ? redirect()->route('admin.dashboard.index') : view('admin.login');
+            ? redirect()->route('admin.welcome.index') : view('admin.login');
     }
 
     /**
      * Authenticate.
+     *
      * @param LoginRequest $request
      * @return RedirectResponse
      */
     public function login(LoginRequest $request): RedirectResponse
     {
         $rememberMe = $request->has('remember_me');
-        $request = $request->validated();
-        if (Auth::guard('admin')->attempt($request, $rememberMe)) {
-            session()->regenerate();
-            return redirect()->route('admin.dashboard.index');
+        if (Auth::guard('admin')->attempt(
+            ['email' => $request->email, 'password' => $request->password, 'status' => TRUE ], $rememberMe)) {
+            Auth::guard('admin')->user();
+            return redirect()->route('admin.welcome.index');
         }
         return back()->withErrors([
             'status' => 'Please check your login information.',
@@ -39,6 +41,7 @@ class AuthController extends Controller
 
     /**
      * Logout.
+     *
      * @return RedirectResponse
      */
     public function logout(): RedirectResponse
@@ -47,6 +50,6 @@ class AuthController extends Controller
         session()->invalidate();
         session()->regenerateToken();
 
-        return back();
+        return redirect()->route('admin.auth.login');
     }
 }
