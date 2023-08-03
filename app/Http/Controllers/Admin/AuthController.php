@@ -11,16 +11,18 @@ class AuthController extends Controller
 {
     /**
      * Render view.
+     *
      * @return string
      */
     public function index(): string
     {
         return Auth::guard('admin')->check()
-            ? redirect()->route('admin.dashboard.index') : view('admin.login');
+            ? redirect()->route('admin.welcome.index') : view('admin.login');
     }
 
     /**
      * Authenticate.
+     *
      * @param LoginRequest $request
      * @return RedirectResponse
      */
@@ -30,7 +32,7 @@ class AuthController extends Controller
         if (Auth::guard('admin')->attempt(
             ['email' => $request->email, 'password' => $request->password, 'status' => TRUE ], $rememberMe)) {
             Auth::guard('admin')->user();
-            return redirect()->route('admin.dashboard.index');
+            return redirect()->route('admin.welcome.index');
         }
         return back()->withErrors([
             'status' => 'Please check your login information.',
@@ -39,6 +41,7 @@ class AuthController extends Controller
 
     /**
      * Logout.
+     *
      * @return RedirectResponse
      */
     public function logout(): RedirectResponse

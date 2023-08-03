@@ -48,6 +48,8 @@ class UserManagerController extends Controller
     }
 
     /**
+     * Store user.
+     *
      * @param UserManagerRequest $request
      * @return RedirectResponse
      */
@@ -85,6 +87,8 @@ class UserManagerController extends Controller
     }
 
     /**
+     * Update user.
+     *
      * @param UserManagerRequest $request
      * @param $id
      * @return RedirectResponse
