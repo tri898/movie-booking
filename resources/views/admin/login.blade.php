@@ -79,7 +79,7 @@
 </main>
 
 <script src="{{ mix('/admin/js/app.js') }}"></script>
-<script src="{{ mix('/admin/js/validate-forms/login.js')}}"></script>
+<script src="{{ mix('/admin/js/pages/login.js')}}"></script>
 </body>
 
 </html>

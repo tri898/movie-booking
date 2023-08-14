@@ -1,15 +1,27 @@
 import JustValidate from 'just-validate';
 const validator  = new JustValidate('#userManagerForm',{
-    errorLabelCssClass: 'mt-2'
+    errorLabelCssClass: 'mt-2',
+    validateBeforeSubmitting: true,
 });
 
 validator
+    .addField('#adminEmail', [
+        {
+            rule: 'required',
+        },
+        {
+            rule: 'email',
+        }
+    ])
     .addField('#adminName', [
         {
             rule: 'required',
         }
     ])
     .addField('#adminPassword', [
+        {
+            rule: 'required',
+        },
         {
             rule: 'strongPassword'
         },
@@ -19,6 +31,9 @@ validator
             errorsContainer: document.querySelector('.password-group'),
         })
     .addField('#adminPasswordConfirmation', [
+        {
+            rule: 'required',
+        },
         {
             validator: (value, fields) => {
                 if (

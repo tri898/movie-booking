@@ -24,7 +24,7 @@
                             </div>
                         @endif
                         <div class="mt-3">
-                            <a href="{{route('admin.user-manager.create')}}" class="btn btn-primary">Create User
+                            <a href="{{route('cms.user-manager.create')}}" class="btn btn-primary">Create User
                                 Manager</a>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                                 </td>
                                 <td class="d-none d-md-table-cell">{{ $admin->last_login_ip }}</td>
                                 <td>
-                                    <a href="{{ route('admin.user-manager.edit',$admin->id) }}"><i class="align-middle" data-feather="edit-2"></i></a>
+                                    <a href="{{ route('cms.user-manager.edit',$admin->id) }}"><i class="align-middle" data-feather="edit-2"></i></a>
                                 </td>
                             </tr>
                         @endforeach

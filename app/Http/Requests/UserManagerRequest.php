@@ -26,7 +26,7 @@ class UserManagerRequest extends FormRequest
     {
         $rules = [
             'status' => 'boolean',
-            'roles' => 'required|array'
+            'roles' => 'required|array|exists:roles,name'
         ];
         if (request()->routeIs('admin.user-manager.store')) {
             $rules['email'] = 'required|email|max:100|unique:admins';

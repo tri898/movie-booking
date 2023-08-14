@@ -144,7 +144,7 @@
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                         @if(auth()->guard('admin')->check())
-                        <img src="{{asset('/admin/img/avatars/avatar.jpg')}}" class="avatar img-fluid rounded me-1" alt="{{ auth()->guard('admin')->user()->name }}" /> <span class="text-dark">
+                        <img src="https://demo.adminkit.io/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="{{ auth()->guard('admin')->user()->name }}" /> <span class="text-dark">
                             {{ auth()->guard('admin')->user()->name }}
                         @endif
                     </span>

@@ -25,7 +25,7 @@
                                 @endforeach
                             </div>
                         @endif
-                        <form action="{{ route('admin.user-manager.update', $admin->id) }}" method="POST" id="userManagerForm">
+                        <form action="{{ route('cms.user-manager.update', $admin->id) }}" method="POST" id="userManagerForm">
                             @csrf
                             @method('PUT')
                             <div class="mb-3 row">
@@ -125,5 +125,5 @@
             passwordConfirmation.setAttribute("type", type);
         });
     </script>
-    <script src="{{ mix('/admin/js/validate-forms/update-user-manager.js')}}"></script>
+    <script src="{{ mix('/admin/js/pages/update-user-manager.js')}}"></script>
 @endsection

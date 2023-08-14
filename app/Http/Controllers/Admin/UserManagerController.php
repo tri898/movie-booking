@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserManagerRequest;
 use App\Repositories\Admin\AdminRepositoryInterface;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Role;
@@ -65,7 +67,7 @@ class UserManagerController extends Controller
         $admin = $this->adminRepository->store($credentials);
         $admin->assignRole($request->roles);
         // send verify email.
-        return redirect()->route('admin.user-manager.index')->with([
+        return redirect()->route('cms.user-manager.index')->with([
             'message' => 'Create user manager successfully.',
         ]);
     }
@@ -97,11 +99,11 @@ class UserManagerController extends Controller
     {
         $admin = $this->adminRepository->findOrFail($id);
         $credentials = $request->only(['name', 'password', 'status']);
-        $adminData = $this->adminRepository->update($id, $credentials);
+        $adminData = $this->adminRepository->update($id, array_filter($credentials));
         $admin->syncRoles($request->roles);
 
         $message = $adminData ? 'Update user manager successfully.' : 'Something wrong';
-        return redirect()->route('admin.user-manager.index')->with([
+        return redirect()->route('cms.user-manager.index')->with([
             'message' => $message
         ]);
     }

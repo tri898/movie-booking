@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
-use App\Http\Controllers\Admin\UserManagerController;
+use App\Http\Controllers\Admin\{
+    UserManagerController,
+    RoleController
+};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SocialLoginController;
 
@@ -22,11 +25,12 @@ Route::get('/', function () {
 
 // Private route CMS admin
 Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
-    Route::name('admin.')->group(function () {
-        Route::get('dashboard', function () {
-            return view('admin.index');
-        })->name('welcome.index');
+    Route::get('welcome', function () {
+        return view('admin.index');
+    })->name('admin.welcome.index');
+    Route::name('cms.')->group(function () {
         Route::resource('user-manager', UserManagerController::class)->except(['show','destroy']);
+        Route::apiResource('roles', RoleController::class);
 
     });
 });

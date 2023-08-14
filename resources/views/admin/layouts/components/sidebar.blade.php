@@ -8,15 +8,14 @@
             <li class="sidebar-header">
                 Administrator
             </li>
-
-            <li class="sidebar-item active">
-                <a class="sidebar-link" href="{{ route('admin.user-manager.index') }}">
+            <li class="sidebar-item {{ request()->routeIs('cms.user-manager.*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('cms.user-manager.index') }}">
                     <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">User Manager</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-profile.html">
+            <li class="sidebar-item {{ request()->routeIs('cms.roles.index') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('cms.roles.index') }}">
                     <i class="align-middle" data-feather="star"></i> <span class="align-middle">Roles</span>
                 </a>
             </li>
