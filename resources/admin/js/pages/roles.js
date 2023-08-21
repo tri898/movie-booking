@@ -15,14 +15,13 @@ let confirmDeleteButton = document.getElementById('deleteRole');
 let deleteRoleId;
 
 let createButton = document.getElementById('createButton');
-let editButtons = document.querySelectorAll('td > a');
+let editButtons = document.querySelectorAll('td > a:first-child');
 let deleteButtons = document.querySelectorAll('td > a:nth-child(2)');
 let editRoleId;
 
 const saveButton = document.getElementById('saveRole');
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const CURRENT_URL = window.location.href;
-
 const validator = new JustValidate('#roleForm', {
     errorLabelCssClass: 'mt-2',
     validateBeforeSubmitting: true,
@@ -52,6 +51,10 @@ const notyf = new Notyf({
 });
 
 saveButton.addEventListener('click', function (event) {
+    if (event.detail > 1) {
+        notyf.error("Don't click too fast.");
+        return;
+    }
     form.requestSubmit();
 })
 
@@ -59,15 +62,21 @@ saveButton.addEventListener('click', function (event) {
 createButton.addEventListener('click', function (event) {
     labelModal.innerHTML = 'Create role';
     form.reset();
+    form.removeEventListener('submit', update);
     form.addEventListener('submit', store);
     validator.refresh();
 })
 
 // edit button
 editButtons.forEach(function (element) {
+    addOnClickEdit(element);
+})
+
+function addOnClickEdit(element) {
     element.addEventListener('click', async function (event) {
         form.reset();
-        form.addEventListener('submit', update)
+        form.removeEventListener('submit', store);
+        form.addEventListener('submit', update);
         validator.refresh();
 
         const roleId = element.closest('tr').getAttribute('data-id');
@@ -81,10 +90,8 @@ editButtons.forEach(function (element) {
                 labelModal.innerHTML = `Edit role <strong>${data.data?.name}</strong>`;
                 nameInput.value = data.data?.name;
             })
-        console.log(editRoleId);
-
-    }, false)
-})
+    })
+}
 
 // store role
 async function store() {
@@ -113,6 +120,8 @@ async function store() {
                                 </td>`;
             feather.replace()
             modal.hide();
+            addOnClickEdit(row.querySelector('td > a:first-child'));
+            addOnClickDelete(row.querySelector('td > a:nth-child(2)'));
             // Display an error notification
             notyf.success('Create role successfully!');
         } else if (response.status === 422) {
@@ -145,10 +154,10 @@ async function update() {
         if (response.status === 200) {
             modal.hide();
             const row = document.querySelector(`tr[data-id="${editRoleId}"]`);
-            row.setAttribute('data-name',result.data?.name);
+            row.setAttribute('data-name', result.data?.name);
             row.firstElementChild.innerHTML = result.data?.name;
             notyf.success('Update role successfully!');
-        } else if (response.status === 422){
+        } else if (response.status === 422) {
             let errorMessages = result?.errors['name'].join('<br>')
             // Display an error notification
             notyf.error(errorMessages);
@@ -159,14 +168,18 @@ async function update() {
         console.error("Error:", error);
     }
 }
+
 // edit button
 deleteButtons.forEach(function (element) {
+    addOnClickDelete(element)
+});
+
+function addOnClickDelete(element) {
     element.addEventListener('click', function (event) {
         labelDeleteModal.innerHTML = `Delete role <strong>${element.closest('tr').getAttribute('data-name')}</strong>`;
         deleteRoleId = element.closest('tr').getAttribute('data-id');
-        console.log(deleteRoleId);
     })
-});
+}
 
 confirmDeleteButton.addEventListener('click', async function (event) {
     await fetch(CURRENT_URL + '/' + deleteRoleId, {

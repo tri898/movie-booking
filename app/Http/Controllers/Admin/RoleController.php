@@ -79,7 +79,7 @@ class RoleController extends Controller
         try {
             $role = Role::findById($id, 'admin');
             $validator = Validator::make($request->all(), [
-                'name' => 'required|unique:roles|min:5|max:50|',
+                'name' => 'required|min:5|max:50|unique:roles,name,' . $role->id,
             ]);
             if ($validator->fails()) {
                 return response()->validator($validator->errors());
@@ -87,7 +87,7 @@ class RoleController extends Controller
 
             $role->updateOrFail(['guard_name' => 'admin', 'name' => $request->name]);
         } catch (\Exception|\Throwable $exception) {
-            return response()->internalServerError([]);
+            return response()->internalServerError([$exception]);
         }
         return response()->ok($role);
     }
