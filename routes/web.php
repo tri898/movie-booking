@@ -3,7 +3,8 @@
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\{
     UserManagerController,
-    RoleController
+    RoleController,
+    PermissionController
 };
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SocialLoginController;
@@ -23,15 +24,18 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Private route CMS admin
-Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
+Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin'], function () {
     Route::get('welcome', function () {
         return view('admin.index');
     })->name('admin.welcome.index');
+});
+// Private route CMS admin
+Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::name('cms.')->group(function () {
         Route::resource('user-manager', UserManagerController::class)->except(['show','destroy']);
         Route::apiResource('roles', RoleController::class);
-
+        Route::get('permissions',  [PermissionController::class, 'index'])->name('permissions.index');
+        Route::put('permissions',  [PermissionController::class, 'update'])->name('permissions.update');
     });
 });
 

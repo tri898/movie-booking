@@ -44,7 +44,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
         'admin' => [
-            'guest:admin','inactive:admin'
+            'guest:admin','inactive:admin','route_permission:admin'
         ],
     ];
 
@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'inactive' => \App\Http\Middleware\Inactive::class,
+        'route_permission' => \App\Http\Middleware\RoutePermissionMiddleware::class,
     ];
 }

@@ -99,7 +99,10 @@ class UserManagerController extends Controller
     {
         $admin = $this->adminRepository->findOrFail($id);
         $credentials = $request->only(['name', 'password', 'status']);
-        $adminData = $this->adminRepository->update($id, array_filter($credentials));
+        $credentials = array_filter($credentials, function ($value) {
+            return $value !== null;
+        });
+        $adminData = $this->adminRepository->update($id, $credentials);
         $admin->syncRoles($request->roles);
 
         $message = $adminData ? 'Update user manager successfully.' : 'Something wrong';

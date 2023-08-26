@@ -1,6 +1,6 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="/">
+        <a class="sidebar-brand" href="{{ route('admin.welcome.index') }}">
             <span class="align-middle">MovieCMS</span>
         </a>
 
@@ -20,8 +20,8 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-sign-in.html">
+            <li class="sidebar-item {{ request()->routeIs('cms.permissions.index') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('cms.permissions.index') }}">
                     <i class="align-middle" data-feather="lock"></i> <span class="align-middle">Permissions</span>
                 </a>
             </li>
