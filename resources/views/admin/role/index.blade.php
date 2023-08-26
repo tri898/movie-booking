@@ -16,30 +16,40 @@
 
                         <h5 class="card-title mb-0">Roles</h5>
                         <div class="mt-3">
-                            <button type="button" class="btn btn-primary" id="createButton" data-bs-toggle="modal" data-bs-target="#roleModal">
+                            <button type="button" class="btn btn-primary" id="createButton" data-bs-toggle="modal"
+                                    data-bs-target="#roleModal">
                                 Create role
                             </button>
                         </div>
                     </div>
-                    <table class="table table-hover my-0" id="rolesTable">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($roles as $role)
+                        <table class="table table-hover my-0 mb-3" id="rolesTable">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                    @forelse($roles as $role)
                             <tr data-id="{{ $role->id }}" data-name="{{ $role->name }}">
                                 <td>{{ $role->name }}</td>
                                 <td>
-                                    <a href="#" class="me-2" data-bs-toggle="modal" data-bs-target="#roleModal"><i class="align-middle" data-feather="edit-2"></i></a>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#roleModalDelete"><i class="align-middle" data-feather="trash-2"></i></a>
+                                    <a href="#" class="me-2" data-bs-toggle="modal" data-bs-target="#roleModal"><i
+                                            class="align-middle" data-feather="edit-2"></i></a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#roleModalDelete"><i
+                                            class="align-middle" data-feather="trash-2"></i></a>
                                 </td>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                    @empty
+                        <tr>
+                            <td colspan="2">
+                                <p class="text-black text-center">No records to display</p>
+                            </td>
+                        </tr>
+
+                    @endforelse
+                            </tbody>
+                        </table>
                 </div>
             </div>
         </div>
@@ -74,7 +84,8 @@
             </div>
         </div>
         <!-- Modal Delete-->
-        <div class="modal fade" id="roleModalDelete" tabindex="-1" aria-labelledby="roleModalDelLabel" aria-hidden="true">
+        <div class="modal fade" id="roleModalDelete" tabindex="-1" aria-labelledby="roleModalDelLabel"
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">

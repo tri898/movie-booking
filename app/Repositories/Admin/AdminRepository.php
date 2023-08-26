@@ -39,8 +39,7 @@ class AdminRepository implements AdminRepositoryInterface
      */
     public function update($id, array $attr): mixed
     {
-        return Admin::where('id', $id)
-            ->update($attr);
+        return $this->findOrFail($id)->update($attr);
     }
 
     /**

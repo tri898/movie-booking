@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 class RoleController extends Controller
 {
@@ -20,14 +20,7 @@ class RoleController extends Controller
      */
     public function index(): View
     {
-//       $routes = collect(Route::getRoutes()->getRoutes())
-//           ->filter(function ($value) {
-//           return Str::contains($value->getName(), 'cms.');
-//       });
-//        foreach ($routes as $route) {
-//            dump($route->getName());
-//       }
-        $roles = Role::all();
+        $roles = Role::all(['id','name']);
         return view('admin.role.index')->with([
             'roles' => $roles
         ]);
@@ -47,7 +40,7 @@ class RoleController extends Controller
         if ($validator->fails()) {
             return response()->validator($validator->errors());
         }
-        $role = Role::create(['guard_name' => 'admin', 'name' => $request->name]);
+        $role = Role::create(['name' => $request->name]);
         return response()->created($role);
     }
 
@@ -60,7 +53,7 @@ class RoleController extends Controller
     public function show($id): JsonResponse
     {
         try {
-            $response = Role::findById($id, 'admin');
+            $response = Role::findById($id);
         } catch (\Exception $exception) {
             return response()->notFound([], $exception->getMessage());
         }
@@ -85,7 +78,7 @@ class RoleController extends Controller
                 return response()->validator($validator->errors());
             }
 
-            $role->updateOrFail(['guard_name' => 'admin', 'name' => $request->name]);
+            $role->updateOrFail(['name' => $request->name]);
         } catch (\Exception|\Throwable $exception) {
             return response()->internalServerError([$exception]);
         }
@@ -99,7 +92,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
         try {
-            $role = Role::findById($id, 'admin');
+            $role = Role::findById($id);
             $role->delete();
         } catch (\Exception $exception) {
             return response()->notFound([], $exception->getMessage());
