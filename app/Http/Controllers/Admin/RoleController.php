@@ -70,7 +70,7 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $role = Role::findById($id, 'admin');
+            $role = Role::findById($id);
             $validator = Validator::make($request->all(), [
                 'name' => 'required|min:5|max:50|unique:roles,name,' . $role->id,
             ]);

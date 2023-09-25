@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile
     container_name: movie-booking
-    restart: always
+#    restart: always
     working_dir: /var/www/html
     ports:
       - "8000:8000"
@@ -23,7 +23,7 @@ services:
     container_name: mb_mysql
     image: mysql:8.0
     command: "--default-authentication-plugin=mysql_native_password"
-    restart: always
+#    restart: always
     ports:
       - "3306:3306"
     volumes:

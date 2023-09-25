@@ -10,13 +10,12 @@ class AdminRepository implements AdminRepositoryInterface
     /**
      * Get all field in admin with relationships.
      *
-     * @param array $relations
      * @param int $limit
      * @return LengthAwarePaginator
      */
-    public function getAllWith(array $relations, int $limit = 10): LengthAwarePaginator
+    public function getWithRoles(int $limit = 10): LengthAwarePaginator
     {
-        return Admin::with($relations)->latest()->paginate($limit);
+        return Admin::with('roles:name')->latest()->paginate($limit);
     }
 
     /**

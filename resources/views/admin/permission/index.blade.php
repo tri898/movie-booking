@@ -15,14 +15,22 @@
                     <div class="card-header">
 
                         <h5 class="card-title mb-0">Permissions</h5>
-                    </div>
-                    @if(session('message'))
-                        <div class="alert alert-success mt-3" role="alert">
-                            <div class="alert-message text-wrap">
-                                {{ session('message') }}
+                        @if(session('message'))
+                            <div class="alert alert-success mt-3" role="alert">
+                                <div class="alert-message text-wrap">
+                                    {{ session('message') }}
+                                </div>
                             </div>
+                        @endif
+                        <div class="mt-3 float-end">
+                            <form action="{{ route('cms.permissions.sync') }}" method="POST" id="permissionForm">
+                                @csrf
+                            <button type="submit" class="btn btn-sm btn-info" id="syncButton">
+                                Sync permissions
+                            </button>
+                            </form>
                         </div>
-                    @endif
+                    </div>
                     <form action="{{ route('cms.permissions.update') }}" method="POST" id="permissionForm">
                         @csrf
                         @method('PUT')
@@ -66,5 +74,4 @@
 @endsection
 @section('script')
     @parent
-    <script src="{{ mix('/admin/js/pages/roles.js')}}"></script>
 @endsection

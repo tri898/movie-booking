@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Permission;
@@ -18,13 +21,6 @@ class PermissionController extends Controller
      */
     public function index(): View
     {
-//       $routes = collect(Route::getRoutes()->getRoutes())
-//           ->filter(function ($value) {
-//           return Str::contains($value->getName(), 'cms.');
-//       });
-//        foreach ($routes as $route) {
-//            Permission::create(['guard_name' => 'admin', 'name' => $route->getName()]);
-//       }
         $roles = Role::with('permissions:name')->get(['id', 'name']);
         $permissions = Permission::all('name');
         return view('admin.permission.index')->with([
@@ -39,7 +35,7 @@ class PermissionController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
         if ($request->has('data')) {
             $data = $request->get('data');
@@ -53,6 +49,28 @@ class PermissionController extends Controller
         }
         return redirect()->route('cms.permissions.index')->with([
             'message' => 'Update permissions successfully.'
+        ]);
+    }
+
+    /**
+     * Sync permission.
+     *
+     * @return RedirectResponse
+     * @throws BindingResolutionException
+     */
+    public function syncPermissions(): RedirectResponse
+    {
+        $routes = collect(Route::getRoutes()->getRoutes())
+            ->filter(function ($value) {
+                return Str::contains($value->getName(), 'cms.');
+            });
+        foreach ($routes as $route) {
+            Permission::findOrCreate($route->getName(), 'admin');
+        }
+        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
+        return redirect()->route('cms.permissions.index')->with([
+            'message' => 'Sync permissions successfully.'
         ]);
     }
 

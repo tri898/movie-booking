@@ -31,7 +31,7 @@
                     <table class="table table-hover my-0">
                         <thead>
                         <tr>
-                            <th>Username</th>
+                            <th>Email</th>
                             <th>Status</th>
                             <th class="d-none d-xl-table-cell">Roles</th>
                             <th class="d-none d-xl-table-cell">Created at</th>

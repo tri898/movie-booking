@@ -36,6 +36,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
         Route::apiResource('roles', RoleController::class);
         Route::get('permissions',  [PermissionController::class, 'index'])->name('permissions.index');
         Route::put('permissions',  [PermissionController::class, 'update'])->name('permissions.update');
+        Route::post('permissions',  [PermissionController::class, 'syncPermissions'])->name('permissions.sync');
+
     });
 });
 

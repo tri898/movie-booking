@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserManagerRequest;
 use App\Repositories\Admin\AdminRepositoryInterface;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Role;
@@ -30,7 +28,7 @@ class UserManagerController extends Controller
      */
     public function index(): View
     {
-        $admins = $this->adminRepository->getAllWith(['roles:name']);
+        $admins = $this->adminRepository->getWithRoles();
         return view('admin.user-manager.index')->with([
             'admins' => $admins
         ]);
