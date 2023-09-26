@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-use Spatie\Permission\Models\Permission;
+use App\Models\Permission;
 use App\Models\Role;
 
 class PermissionController extends Controller
@@ -53,7 +53,7 @@ class PermissionController extends Controller
     }
 
     /**
-     * Sync permission.
+     * Sync permissions.
      *
      * @return RedirectResponse
      * @throws BindingResolutionException
@@ -61,14 +61,13 @@ class PermissionController extends Controller
     public function syncPermissions(): RedirectResponse
     {
         $routes = collect(Route::getRoutes()->getRoutes())
-            ->filter(function ($value) {
-                return Str::contains($value->getName(), 'cms.');
+            ->filter(function ($route) {
+                return Str::contains($route->getName(), 'cms.');
+            })->map(function ($item) {
+                return $item->getName();
             });
-        foreach ($routes as $route) {
-            Permission::findOrCreate($route->getName(), 'admin');
-        }
-        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
+        Permission::syncFrom($routes->toArray());
         return redirect()->route('cms.permissions.index')->with([
             'message' => 'Sync permissions successfully.'
         ]);
