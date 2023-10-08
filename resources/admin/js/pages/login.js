@@ -1,6 +1,6 @@
 import JustValidate from 'just-validate';
 const validator  = new JustValidate('#login-form',{
-    errorLabelCssClass: 'mt-2',
+    errorLabelCssClass: 'mt-2 form-text',
     validateBeforeSubmitting: true,
 });
 

@@ -37,6 +37,7 @@
 @import "~bootstrap/scss/alert";
 @import "~bootstrap/scss/pagination";
 @import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/breadcrumb";
 
 
 // Theme mixins
@@ -62,6 +63,7 @@
 @import "3-components/tables";
 @import "3-components/type";
 @import "3-components/wrapper";
+@import "3-components/dropzone";
 
 // Theme utilities
 @import "4-utilities/cursors";

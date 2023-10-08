@@ -14,3 +14,10 @@ import "./modules/flatpickr";
 
 // Maps
 import "./modules/vector-maps";
+
+// Dropzone
+import "./modules/dropzone";
+
+// Notyf
+import "./modules/notyf";
+import 'notyf/notyf.min.css';

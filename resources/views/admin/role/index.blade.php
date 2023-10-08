@@ -8,7 +8,14 @@
 @section('content')
     <main class="content">
         <div class="container-fluid p-0">
-            <h1 class="h3 mb-3">Roles</h1>
+            <nav
+                style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+                aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.welcome.index') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Roles</li>
+                </ol>
+            </nav>
 
             <div class="row">
                 <div class="card flex-fill">
@@ -22,15 +29,15 @@
                             </button>
                         </div>
                     </div>
-                        <table class="table table-hover my-0 mb-3" id="rolesTable">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                    @forelse($roles as $role)
+                    <table class="table table-hover my-0 mb-3" id="rolesTable">
+                        <thead>
+                        <tr>
+                            <th class="text-black">Name</th>
+                            <th class="text-black">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($roles as $role)
                             <tr data-id="{{ $role->id }}" data-name="{{ $role->name }}">
                                 <td>{{ $role->name }}</td>
                                 <td>
@@ -40,16 +47,16 @@
                                             class="align-middle" data-feather="trash-2"></i></a>
                                 </td>
                             </tr>
-                    @empty
-                        <tr>
-                            <td colspan="2">
-                                <p class="text-black text-center">No records to display</p>
-                            </td>
-                        </tr>
+                        @empty
+                            <tr>
+                                <td colspan="2">
+                                    <p class="text-black text-center">No records to display</p>
+                                </td>
+                            </tr>
 
-                    @endforelse
-                            </tbody>
-                        </table>
+                        @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

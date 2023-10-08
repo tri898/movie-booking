@@ -8,8 +8,14 @@
 @section('content')
     <main class="content">
         <div class="container-fluid p-0">
-
-            <h1 class="h3 mb-3">User Manager</h1>
+            <nav
+                style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+                aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.welcome.index') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">User Manager</li>
+                </ol>
+            </nav>
 
             <div class="row">
                 <div class="card flex-fill">
@@ -31,13 +37,13 @@
                     <table class="table table-hover my-0">
                         <thead>
                         <tr>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th class="d-none d-xl-table-cell">Roles</th>
-                            <th class="d-none d-xl-table-cell">Created at</th>
-                            <th class="d-none d-xl-table-cell">Last access</th>
-                            <th class="d-none d-md-table-cell">IP access</th>
-                            <th>Actions</th>
+                            <th class="text-black">Email</th>
+                            <th class="text-black">Status</th>
+                            <th class="d-none d-xl-table-cell text-black">Roles</th>
+                            <th class="d-none d-xl-table-cell text-black">Created at</th>
+                            <th class="d-none d-xl-table-cell text-black">Last access</th>
+                            <th class="d-none d-md-table-cell text-black">IP access</th>
+                            <th class="text-black">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -73,7 +79,8 @@
                                 </td>
                                 <td class="d-none d-md-table-cell">{{ $admin->last_login_ip }}</td>
                                 <td>
-                                    <a href="{{ route('cms.user-manager.edit',$admin->id) }}"><i class="align-middle" data-feather="edit-2"></i></a>
+                                    <a href="{{ route('cms.user-manager.edit',$admin->id) }}"><i class="align-middle"
+                                                                                                 data-feather="edit-2"></i></a>
                                 </td>
                             </tr>
                         @endforeach

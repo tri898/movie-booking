@@ -1,6 +1,4 @@
 import JustValidate from 'just-validate';
-import {Notyf} from 'notyf';
-import 'notyf/notyf.min.css';
 
 let bodyTable = document.getElementById('rolesTable').getElementsByTagName('tbody')[0];
 let form = document.getElementById('roleForm');
@@ -23,7 +21,7 @@ const saveButton = document.getElementById('saveRole');
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const CURRENT_URL = window.location.href;
 const validator = new JustValidate('#roleForm', {
-    errorLabelCssClass: 'mt-2',
+    errorLabelCssClass: 'mt-2 form-text',
     validateBeforeSubmitting: true,
 });
 
