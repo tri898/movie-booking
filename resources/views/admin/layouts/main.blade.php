@@ -7,18 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
     <meta name="author" content="AdminTri">
-    <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="keywords"
+          content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="{{asset('admin/img/icons/icon-48x48.png')}}" />
+    <link rel="shortcut icon" href="{{asset('admin/img/icons/icon-48x48.png')}}"/>
 
-    <link rel="canonical" href="/" />
+    <link rel="canonical" href="/"/>
 
     <title>@yield('title')</title>
 
     @section('vendor_css')
-    <link href="{{ mix('admin/css/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('admin/css/app.css') }}" rel="stylesheet">
     @show
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -30,14 +31,15 @@
     <div class="main">
         @include('admin.layouts.components.navbar')
 
-            @yield('content')
+        @yield('content')
         @include('admin.layouts.components.footer')
     </div>
+    @stack('html')
 </div>
 
 @section('script')
 <script src="{{mix('/admin/js/app.js')}}"></script>
-
+@stack('script')
 @show
 
 </body>

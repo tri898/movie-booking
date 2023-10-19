@@ -33,12 +33,15 @@
                                 @endforeach
                             </div>
                         @endif
-                        <form action="{{ route('cms.user-manager.store') }}" method="POST" id="userManagerForm">
+                        <form action="{{ route('cms.user-manager.store') }}" enctype="multipart/form-data" method="POST" id="userManagerForm">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-3 mt-3">
                                     <label class="form-label"><strong>Avatar</strong></label>
-                                    @include('admin.layouts.components.dropzone.input')
+                                    @php
+                                        $dropzoneConfig = ['formId' => 'userManagerForm', 'paramName' => 'avatar','maxFilesize' => 2, 'maxFiles' => 1, 'acceptedFiles' => '.png, .jpg, .gif'];
+                                     @endphp
+                                    @include('admin.layouts.components.dropzone.input', $dropzoneConfig)
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="row">
@@ -123,11 +126,10 @@
             </div>
         </div>
     </main>
-    @include('admin.layouts.components.dropzone.modal')
+
 @endsection
 @section('script')
     @parent
-    @include('admin.layouts.components.dropzone.config')
     <script type="text/javascript">
         const togglePassword = document.querySelector("#togglePassword");
         const password = document.querySelector("#adminPassword");

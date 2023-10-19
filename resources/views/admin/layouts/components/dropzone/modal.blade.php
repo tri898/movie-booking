@@ -43,68 +43,84 @@
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 mt-3 mb-3 overflow-auto vh-50">
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded-3 img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
+                            </div>
+
+                            <div class="col">
+                                <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
                             <div class="col">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
-                                     class="rounded-3 img-fluid img-thumbnail float-start" alt="...">
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
                             </div>
+                            <div class="col">
+                                <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
+                            </div>
+                            <div class="col">
+                                <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
+                                     class="rounded img-fluid img-thumbnail float-start" alt="..." loading="lazy">
+                            </div>
+
+
+
                         </div>
                 </div>
             </div>
