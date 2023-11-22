@@ -1,13 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\{DeleteEntityController, PermissionController, RoleController, UserManagerController};
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
-use App\Http\Controllers\Admin\{
-    UserManagerController,
-    RoleController,
-    PermissionController
-};
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Auth\SocialLoginController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,14 +29,20 @@ Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin'], function ()
 // Private route CMS admin
 Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::name('cms.')->group(function () {
-        Route::resource('user-manager', UserManagerController::class)->except(['show','destroy']);
-        Route::apiResource('roles', RoleController::class);
-        Route::get('permissions',  [PermissionController::class, 'index'])->name('permissions.index');
-        Route::put('permissions',  [PermissionController::class, 'update'])->name('permissions.update');
-        Route::post('permissions',  [PermissionController::class, 'syncPermissions'])->name('permissions.sync');
-
+        Route::resource('user-manager', UserManagerController::class)->except(['show', 'destroy']);
+        Route::apiResource('role', RoleController::class);
+        Route::get('permission', [PermissionController::class, 'index'])->name('permission.index');
+        Route::put('permission', [PermissionController::class, 'update'])->name('permission.update');
+        Route::post('permission', [PermissionController::class, 'syncPermissions'])->name('permission.sync');
+        Route::resource('media', MediaController::class)->except(['show','edit','update']);
     });
+    Route::get('{entity}/delete/{id}/confirm', [DeleteEntityController::class, 'confirm'])
+        ->name('entity.delete.confirm');
+    Route::post('media/upload', [MediaController::class, 'upload'])->name('media.upload');
+    Route::get('media/{id}', [MediaController::class, 'render'])->name('media.get');
 });
+
+
 
 // Public route CMS admin
 Route::group(['prefix' => 'admin'], function () {

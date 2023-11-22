@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Roles')
+@section('title', 'Role')
 
 @section('vendor_css')
     @parent
@@ -118,5 +118,5 @@
 @endsection
 @section('script')
     @parent
-    <script src="{{ mix('/admin/js/pages/roles.js')}}"></script>
+    <script src="{{ mix('/admin/js/pages/role.js')}}"></script>
 @endsection

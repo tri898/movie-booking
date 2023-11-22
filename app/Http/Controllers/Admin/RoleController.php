@@ -21,6 +21,7 @@ class RoleController extends Controller
     public function index(): View
     {
         $roles = Role::all(['id','name']);
+
         return view('admin.role.index')->with([
             'roles' => $roles
         ]);
@@ -41,6 +42,7 @@ class RoleController extends Controller
             return response()->validator($validator->errors());
         }
         $role = Role::create(['name' => $request->name]);
+
         return response()->created($role);
     }
 
@@ -57,6 +59,7 @@ class RoleController extends Controller
         } catch (\Exception $exception) {
             return response()->notFound([], $exception->getMessage());
         }
+
         return response()->ok($response);
     }
 
@@ -82,6 +85,7 @@ class RoleController extends Controller
         } catch (\Exception|\Throwable $exception) {
             return response()->internalServerError([$exception]);
         }
+
         return response()->ok($role);
     }
 
@@ -97,6 +101,7 @@ class RoleController extends Controller
         } catch (\Exception $exception) {
             return response()->notFound([], $exception->getMessage());
         }
+
         return response()->noContentData();
     }
 

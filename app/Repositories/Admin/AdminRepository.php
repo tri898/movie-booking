@@ -15,7 +15,7 @@ class AdminRepository implements AdminRepositoryInterface
      */
     public function getWithRoles(int $limit = 10): LengthAwarePaginator
     {
-        return Admin::with('roles:name')->latest()->paginate($limit);
+        return Admin::with(['roles:name', 'media'])->latest()->paginate($limit);
     }
 
     /**

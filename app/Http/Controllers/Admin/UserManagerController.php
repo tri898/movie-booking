@@ -7,6 +7,7 @@ use App\Http\Requests\UserManagerRequest;
 use App\Repositories\Admin\AdminRepositoryInterface;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Plank\Mediable\Media;
 use Spatie\Permission\Models\Role;
 
 class UserManagerController extends Controller
@@ -63,10 +64,11 @@ class UserManagerController extends Controller
         }
         $credentials = $request->only(['email', 'name', 'password', 'status']);
         $admin = $this->adminRepository->store($credentials);
-        $admin->assignRole($request->roles);
-        // send verify email.
+        $admin->assignRole($request->get('roles'));
+        $admin->syncMedia($request->get('avatar'), 'avatar');
+
         return redirect()->route('cms.user-manager.index')->with([
-            'message' => 'Create user manager successfully.',
+            'message' => "Create user ($admin->email) successfully.",
         ]);
     }
 
@@ -80,9 +82,12 @@ class UserManagerController extends Controller
     {
         $admin = $this->adminRepository->findOrFail($id);
         $roles = Role::all('name');
+        $avatar = $admin->getMedia('avatar')->first();
+
         return view('admin.user-manager.edit')->with([
             'admin' => $admin,
-            'roles' => $roles
+            'roles' => $roles,
+            'avatar' => $avatar
         ]);
     }
 
@@ -101,9 +106,10 @@ class UserManagerController extends Controller
             return $value !== null;
         });
         $adminData = $this->adminRepository->update($id, $credentials);
-        $admin->syncRoles($request->roles);
+        $admin->syncRoles($request->get('roles'));
+        $admin->syncMedia($request->get('avatar'), 'avatar');
 
-        $message = $adminData ? 'Update user manager successfully.' : 'Something wrong';
+        $message = $adminData ? "Update user ($admin->email) successfully." : 'Something wrong';
         return redirect()->route('cms.user-manager.index')->with([
             'message' => $message
         ]);

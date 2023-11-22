@@ -8,6 +8,10 @@ validator
     .addField('#adminName', [
         {
             rule: 'required',
+        },
+        {
+            rule: 'maxLength',
+            value: 100,
         }
     ])
     .addField('#adminPassword', [

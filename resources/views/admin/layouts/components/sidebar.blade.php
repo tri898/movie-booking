@@ -14,27 +14,21 @@
                 </a>
             </li>
 
-            <li class="sidebar-item {{ request()->routeIs('cms.roles.index') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('cms.roles.index') }}">
-                    <i class="align-middle" data-feather="star"></i> <span class="align-middle">Roles</span>
+            <li class="sidebar-item {{ request()->routeIs('cms.role.index') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('cms.role.index') }}">
+                    <i class="align-middle" data-feather="star"></i> <span class="align-middle">Role</span>
                 </a>
             </li>
 
-            <li class="sidebar-item {{ request()->routeIs('cms.permissions.index') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('cms.permissions.index') }}">
-                    <i class="align-middle" data-feather="lock"></i> <span class="align-middle">Permissions</span>
+            <li class="sidebar-item {{ request()->routeIs('cms.permission.index') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('cms.permission.index') }}">
+                    <i class="align-middle" data-feather="lock"></i> <span class="align-middle">Permission</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-sign-up.html">
-                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-blank.html">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
+            <li class="sidebar-item {{ request()->routeIs('cms.media.*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('cms.media.index') }}">
+                    <i class="align-middle" data-feather="upload"></i> <span class="align-middle">Media</span>
                 </a>
             </li>
 

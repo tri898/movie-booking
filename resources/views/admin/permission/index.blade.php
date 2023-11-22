@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Permissions')
+@section('title', 'Permission')
 
 @section('vendor_css')
     @parent
@@ -30,15 +30,15 @@
                             </div>
                         @endif
                         <div class="mt-3 float-end">
-                            <form action="{{ route('cms.permissions.sync') }}" method="POST" id="permissionForm">
+                            <form action="{{ route('cms.permission.sync') }}" method="POST" id="permissionForm">
                                 @csrf
-                            <button type="submit" class="btn btn-sm btn-outline-info" id="syncButton">
+                            <button type="submit" class="btn btn-flickr" id="syncButton">
                                 Sync permissions
                             </button>
                             </form>
                         </div>
                     </div>
-                    <form action="{{ route('cms.permissions.update') }}" method="POST" id="permissionForm">
+                    <form action="{{ route('cms.permission.update') }}" method="POST" id="permissionForm">
                         @csrf
                         @method('PUT')
                         <div class="table-responsive">

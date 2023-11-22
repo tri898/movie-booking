@@ -11,12 +11,20 @@ validator
         },
         {
             rule: 'email',
-        }
+        },
+        {
+            rule: 'maxLength',
+            value: 100,
+        },
     ])
     .addField('#adminName', [
         {
             rule: 'required',
-        }
+        },
+        {
+            rule: 'maxLength',
+            value: 100,
+        },
     ])
     .addField('#adminPassword', [
         {

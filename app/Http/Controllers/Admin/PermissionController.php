@@ -47,7 +47,7 @@ class PermissionController extends Controller
                 });
 
         }
-        return redirect()->route('cms.permissions.index')->with([
+        return redirect()->route('cms.permission.index')->with([
             'message' => 'Update permissions successfully.'
         ]);
     }
@@ -68,7 +68,7 @@ class PermissionController extends Controller
             });
 
         Permission::syncFrom($routes->toArray());
-        return redirect()->route('cms.permissions.index')->with([
+        return redirect()->route('cms.permission.index')->with([
             'message' => 'Sync permissions successfully.'
         ]);
     }

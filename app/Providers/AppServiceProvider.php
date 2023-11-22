@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use App\View\Components\Dropzone\Input;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Intervention\Image\Image;
+use Plank\Mediable\Facades\ImageManipulator;
+use Plank\Mediable\ImageManipulation;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +30,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+        ImageManipulator::defineVariant(
+            'thumbnail',
+            ImageManipulation::make(function (Image $image) {
+                $image->fit(100);
+            })->outputPngFormat()
+        );
+        Blade::component('dropzone-input', Input::class);
     }
 }

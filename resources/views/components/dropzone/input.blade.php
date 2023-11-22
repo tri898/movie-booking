@@ -1,15 +1,15 @@
 <div class="px-3" style="border: dashed #939ba2 1px; border-radius: 5px;">
-    <div id="dropzonePreview" class="row row-cols-1 row-cols-md-1 g-4 mt-0 mb-3 dropzone-previews">
+    <div id="dropzonePreview{{$generateRandomName()}}" class="row row-cols-1 row-cols-md-1 g-4 mt-0 mb-3 dropzone-previews">
     </div>
-    <div class="btn btn-lg btn-info" id="dropzoneUpload" data-bs-toggle="modal"
-         data-bs-target="#dropzoneModal">Add media
+    <div class="btn btn-lg btn-info" id="dropzoneUpload{{$generateRandomName()}}" data-bs-toggle="modal"
+         data-bs-target="#dropzoneModal{{$generateRandomName}}">Add media
     </div>
-    <p class="form-text" id="textValidate">Please select png, jpg type, maximum 2MB.</p>
+    <p class="form-text" id="textValidate{{$generateRandomName()}}">Please select png, jpg type, maximum 2MB.</p>
 </div>
 
 {{--preview--}}
-<div class="table table-striped" id="previews" style="opacity: 0; visibility: hidden;">
-    <div id="dropzoneTemplate" class="col">
+<div class="table table-striped" id="previews{{$generateRandomName()}}" style="opacity: 0; visibility: hidden;">
+    <div id="dropzoneTemplate{{$generateRandomName()}}" class="col">
         <!-- This is used as the file preview template -->
         <div class="preview">
             <div class="mx-auto position-relative" style="width: fit-content">
@@ -25,9 +25,9 @@
 
 </div>
 
-@pushOnce('html')
-    @include('admin.layouts.components.dropzone.modal')
-@endPushOnce
-@pushOnce('script')
-    @include('admin.layouts.components.dropzone.config')
-@endPushOnce
+@push('html')
+    @include('components.dropzone.modal')
+@endPush
+@push('script')
+    @include('components.dropzone.config')
+@endPush

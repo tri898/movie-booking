@@ -1,16 +1,16 @@
-<div class="modal fade" id="dropzoneModal" tabindex="-1" aria-labelledby="dropzoneModalLabel"
+<div class="modal fade" id="dropzoneModal{{$generateRandomName}}" tabindex="-1" aria-labelledby="dropzoneModalLabel{{$generateRandomName()}}"
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content bg-white">
             <div class="modal-header">
-                <h5 class="modal-title" id="dropzoneModalDelLabel">Add or select media</h5>
+                <h5 class="modal-title" id="dropzoneModalLabel{{$generateRandomName()}}">Add or select media</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
                         <div class="row">
                             <form action="/">
-                                <div id="my-dropzone" class="dropzone p-4" style="border: dashed #939ba2 1px; border-radius: 5px;"></div>
+                                <div id="myDropzone{{$generateRandomName()}}" class="dropzone p-4" style="border: dashed #939ba2 1px; border-radius: 5px;"></div>
                             </form>
                         </div>
                         <h5 class="card-title mt-3 mb-3">Select existed media</h5>
@@ -126,7 +126,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="deleteRole">Insert selected</button>
+                <button type="button" class="btn btn-primary" id="delete">Insert selected</button>
             </div>
         </div>
     </div>

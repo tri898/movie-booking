@@ -27,6 +27,7 @@ class Inactive
                 Auth::guard($guard)->logout();
                 session()->invalidate();
                 session()->regenerateToken();
+
                 return abort(403,'Your account was banned');
             }
         }

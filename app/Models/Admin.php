@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
+use Plank\Mediable\Mediable;
 use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
@@ -15,6 +16,7 @@ class Admin extends Authenticatable
     use HasFactory;
     use Notifiable;
     use HasRoles;
+    use Mediable;
 
     /**
      * The attributes that are mass assignable.

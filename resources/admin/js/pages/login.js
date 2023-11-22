@@ -12,6 +12,10 @@ validator
         {
             rule: 'email',
         },
+        {
+            rule: 'maxLength',
+            value: 100,
+        },
     ])
     .addField('#login-password', [
         {
