@@ -12,7 +12,8 @@ use Illuminate\View\View;
 use Plank\Mediable\Exceptions\MediaUploadException;
 use Plank\Mediable\Facades\ImageManipulator;
 use Plank\Mediable\Facades\MediaUploader;
-use Plank\Mediable\Media;
+use App\Models\Media;
+use Plank\Mediable\Media as MediaAlias;
 
 class MediaController extends Controller
 {
@@ -21,13 +22,20 @@ class MediaController extends Controller
     /**
      * Render view index.
      *
-     * @return View
+     * @param Request $request
+     * @return View | JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request): View | JsonResponse
     {
-        $medias = Media::with('variants')->whereIsOriginal()
-            ->latest()
-            ->inDirectory('public', static::MEDIA_DIRECTORY, true)->paginate(20);
+        $medias = Media::with('variants')
+            ->whereIsOriginal()
+            ->fileName($request->get('file_name'))
+            ->aggregateType($request->get('aggregate_type'))
+            ->orderBy('created_at', $request->get('sort_order', 'desc'))
+            ->paginate(20);
+        if ($request->ajax()) {
+            return response()->json(1111);
+        }
 
         return view('admin.media.index')->with([
             'medias' => $medias
@@ -39,7 +47,7 @@ class MediaController extends Controller
      *
      * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.media.create');
     }
@@ -50,7 +58,7 @@ class MediaController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
             'fileName' => 'required|min:1|max:100|',
@@ -59,10 +67,12 @@ class MediaController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator->errors())->withInput();
         }
-        $this->processMedia($request->file('media'), $request->get('fileName'));
+        $media = $this->processMedia($request->file('media'), $request->get('fileName'));
+
+        $message = $media ? 'Upload media successfully.' : 'Upload media failed.';
 
         return redirect()->route('cms.media.index')->with([
-            'message' => 'Upload media successfully.',
+            'message' => $message,
         ]);
     }
 
@@ -72,7 +82,7 @@ class MediaController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function upload(Request $request)
+    public function upload(Request $request): JsonResponse
     {
         $mediaFiles = !is_array($request->file('media'))
             ? [$request->file('media')] : $request->file('media');
@@ -87,19 +97,26 @@ class MediaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param int|string $ids
      * @return RedirectResponse
      */
-    public function destroy(int $id): RedirectResponse
+    public function destroy(int|string $ids): RedirectResponse
     {
-        $medias = Media::find($id)
-            ->getAllVariantsAndSelf();
-        foreach ($medias as $media) {
-            $media->delete();
+        $ids = explode(',', $ids);
+        $medias = Media::find($ids);
+        $baseNames = [];
+
+        foreach ($medias->chunk(20) as $chunk) {
+            foreach ($chunk as $media) {
+                foreach ($media->getAllVariantsAndSelf() as $variant) {
+                    $variant->delete();
+                }
+                $baseNames[] = $media->basename;
+            }
         }
 
         return redirect()->route('cms.media.index')->with([
-            'message' => "Delete media " . ($medias['original'])->basename . " successfully.",
+            'message' => "Delete media " . implode(', ', $baseNames) . " successfully.",
         ]);
     }
 
@@ -120,13 +137,13 @@ class MediaController extends Controller
                 $media->useFilename($fileName);
             }
             $mediaUploaded = $media->upload();
-            if ($mediaUploaded->aggregate_type == Media::TYPE_IMAGE) {
+            if ($mediaUploaded->aggregate_type == MediaAlias::TYPE_IMAGE) {
                 ImageManipulator::createImageVariant($mediaUploaded,
                     'thumbnail', true);
             }
             return $mediaUploaded->id;
         } catch (MediaUploadException $e) {
-            return null;
+            return 0;
         }
     }
 

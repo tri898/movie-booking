@@ -14,21 +14,21 @@ class DeleteEntityController extends Controller
      * Render view delete confirm.
      *
      * @param DeleteEntityType $entity
-     * @param $id
+     * @param $ids
      * @return View
      */
-    public function confirm(DeleteEntityType $entity, $id): View
+    public function confirm(DeleteEntityType $entity, $ids): View
     {
-        $model = ($entity->getModel()['model'])::find($id);
-
+        $ids = explode(',', $ids);
+        $model = ($entity->getModel()['model'])::find($ids);
         if (
-            !is_null($model) &&
-            Route::has("cms.{$entity->value}.destroy")
+            !$model->isEmpty() &&
+            Route::has("cms.$entity->value.destroy")
         ) {
             return view('admin.delete-confirm')->with([
                 'entity' => $entity->value,
                 'model' => $model,
-                'id' => $id,
+                'ids' => implode(',', $ids),
                 'display_name' => $entity->getModel()['displayName'],
             ]);
         }

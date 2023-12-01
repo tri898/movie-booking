@@ -32,7 +32,7 @@
                         <div class="mt-3 float-end">
                             <form action="{{ route('cms.permission.sync') }}" method="POST" id="permissionForm">
                                 @csrf
-                            <button type="submit" class="btn btn-flickr" id="syncButton">
+                            <button type="submit" class="btn btn-outline-success" id="syncButton">
                                 Sync permissions
                             </button>
                             </form>

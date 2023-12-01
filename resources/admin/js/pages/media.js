@@ -1,4 +1,5 @@
 import JustValidate from 'just-validate';
+
 const validator  = new JustValidate('#mediaForm',{
     errorLabelCssClass: 'mt-2 form-text',
     validateBeforeSubmitting: true,
@@ -19,13 +20,23 @@ media.onchange = evt => {
     previewMediaName.textContent = media.files[0].name;
     previewMediaName.href = previewImg.src;
     fileName.value = media.files[0].name.substring(0, media.files[0].name.lastIndexOf('.')) || media.files[0].name;
-    console.log(media.files[0].name, fileName)
 }
 validator
     .addField('#fileName', [
         {
-            rule: 'required',
-        }
+            validator: (value, fields) => {
+                if (
+                    fields['#media'] &&
+                    fields['#media'].elem
+                ) {
+                    const mediaValue = fields['#media'].elem.value;
+                    return !(!value && mediaValue);
+                }
+
+                return true;
+            },
+            errorMessage: 'Please enter a file name',
+        },
     ])
     .addField('#media', [
         {

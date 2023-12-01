@@ -36,12 +36,11 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
         Route::post('permission', [PermissionController::class, 'syncPermissions'])->name('permission.sync');
         Route::resource('media', MediaController::class)->except(['show','edit','update']);
     });
-    Route::get('{entity}/delete/{id}/confirm', [DeleteEntityController::class, 'confirm'])
+});
+    Route::get('{entity}/delete/{ids}/confirm', [DeleteEntityController::class, 'confirm'])
         ->name('entity.delete.confirm');
     Route::post('media/upload', [MediaController::class, 'upload'])->name('media.upload');
     Route::get('media/{id}', [MediaController::class, 'render'])->name('media.get');
-});
-
 
 
 // Public route CMS admin

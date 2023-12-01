@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Confirm delete ' . $model->$display_name)
+@section('title', 'Confirm delete ' . $entity)
 
 @section('vendor_css')
     @parent
@@ -22,7 +22,13 @@
                 <div class="card flex-fill">
                     <div class="card-header">
 
-                        <h5 class="card-title mb-0">Are you sure you want to delete {{ $entity }} {{ $model->$display_name }}?</h5>
+                        <h5 class="card-title mb-0">Are you sure you want to delete {{ $entity }}? </h5>
+                            @foreach($model as $item)
+                                <ul class="text-body-secondary mt-3">
+                                    <li> {{ $item->$display_name }}</li>
+                                </ul>
+                            @endforeach
+
                         @if(session('message'))
                             <div class="alert alert-success mt-3" role="alert">
                                 <div class="alert-message text-wrap">
@@ -31,7 +37,7 @@
                             </div>
                         @endif
                         <div class="m-3">
-                            <form action="{{route('cms.'. $entity . '.destroy', $id)}}" style="display: inline;" method="POST">
+                            <form action="{{route('cms.'. $entity . '.destroy', $ids)}}" style="display: inline;" method="POST">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-primary">Delete</button>

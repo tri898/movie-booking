@@ -13,7 +13,7 @@ return [
      *
      * Should extend `Plank\Mediable\Media`
      */
-    'model' => Plank\Mediable\Media::class,
+    'model' => App\Models\Media::class,
 
     /*
      * Name to be used for mediables joining table
@@ -88,12 +88,14 @@ return [
                 'image/jpeg',
                 'image/png',
                 'image/gif',
+                'image/webp'
             ],
             'extensions' => [
                 'jpg',
                 'jpeg',
                 'png',
                 'gif',
+                'webp',
             ]
         ],
         Plank\Mediable\Media::TYPE_IMAGE_VECTOR => [
@@ -162,7 +164,8 @@ return [
                 'text/json',
                 'application/json',
                 'application/msword',
-                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                 'text/csv',
             ],
             'extensions' => [
                 'doc',
@@ -171,6 +174,7 @@ return [
                 'text',
                 'xml',
                 'json',
+                'csv'
             ]
         ],
         Plank\Mediable\Media::TYPE_SPREADSHEET => [

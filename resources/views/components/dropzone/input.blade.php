@@ -30,4 +30,5 @@
 @endPush
 @push('script')
     @include('components.dropzone.config')
+    @include('components.dropzone.load-media')
 @endPush

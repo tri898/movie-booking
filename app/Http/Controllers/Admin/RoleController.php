@@ -77,11 +77,12 @@ class RoleController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required|min:5|max:50|unique:roles,name,' . $role->id,
             ]);
+
             if ($validator->fails()) {
                 return response()->validator($validator->errors());
             }
 
-            $role->updateOrFail(['name' => $request->name]);
+            $role->updateOrFail(['name' => $request->get('name')]);
         } catch (\Exception|\Throwable $exception) {
             return response()->internalServerError([$exception]);
         }

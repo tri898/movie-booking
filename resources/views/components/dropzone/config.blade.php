@@ -39,7 +39,7 @@
                 this.displayExistingFile(mockFile, url, callback, crossOrigin, resizeThumbnail);
             @endforeach
 
-                uploadBtn.hidden = this.files.length >= this.options.maxFiles;
+            uploadBtn.hidden = this.files.length >= this.options.maxFiles;
             this.on("addedfile", function (file) {
                 if (this.files.length > this.options.maxFiles) {
                     this.removeFile(file);
@@ -48,6 +48,7 @@
                 uploadBtn.hidden = this.files.length >= this.options.maxFiles;
                 bootstrap.Modal.getOrCreateInstance(document.getElementById('dropzoneModal{{$generateRandomName()}}')).hide();
             });
+
             this.on("removedfile", function (file) {
                 uploadBtn.hidden = this.files.length >= this.options.maxFiles;
                 textValidate.textContent = `Please select ${myDropzone.options.acceptedFiles} type, maximum ${myDropzone.options.maxFilesize} MB. Uploaded ${myDropzone.files.length}/${myDropzone.options.maxFiles} file(s).`;
@@ -58,13 +59,13 @@
                     medias.splice(index, 1);
                     formUsed.elements.namedItem('{{ $paramName }}').value = medias.join(',');
                 }
-                console.log(file, medias);
             });
+
             this.on("error", function (file, response) {
                 notyf.error('Something wrong');
             });
+
             this.on("success", function (file, response) {
-                console.log('res', response);
                 let medias = formUsed.elements.namedItem('{{ $paramName }}').value;
                 medias = medias.split(',').filter(Boolean);
                 console.log('media', medias);
