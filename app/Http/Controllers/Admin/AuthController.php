@@ -12,9 +12,9 @@ class AuthController extends Controller
     /**
      * Render view.
      *
-     * @return string
+     * @return mixed
      */
-    public function index(): string
+    public function index(): mixed
     {
         return Auth::guard('admin')->check()
             ? redirect()->route('admin.welcome.index') : view('admin.login');

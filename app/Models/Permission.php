@@ -16,17 +16,19 @@ class Permission extends \Spatie\Permission\Models\Permission
             return $permission->name;
         });
         $permissionsCreate = collect($currentPermissions)->diff($permissions);
-        $permissionsDelete = $permissions->diff($currentPermissions);
-
         $permissionsCreate->chunk(20)->each(function ($items) {
             foreach ($items as $item) {
                 static::create(['name' => $item]);
             }
         });
-        $permissionsDelete->chunk(20)->each(function ($items) {
-            foreach ($items as $item) {
-                static::query()->where(['name' => $item])->delete();
-            }
-        });
+        if ($permissions->isNotEmpty()) {
+            $permissionsDelete = $permissions->diff($currentPermissions);
+            $permissionsDelete->chunk(20)->each(function ($items) {
+                foreach ($items as $item) {
+                    static::query()->where(['name' => $item])->delete();
+                }
+            });
+        }
+
     }
 }
